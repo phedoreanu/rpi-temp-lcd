@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import socket
+import subprocess
 import time
 from datetime import datetime
 
@@ -23,7 +23,7 @@ while True:
         lcd.write_string('Humidity: {0:0.1f} %'.format(humidity))
         time.sleep(3.5)
     else:
-        ip = socket.gethostbyname(socket.gethostname())
+        ip = subprocess.getoutput("ifconfig wlan0 | awk -F '[ :]+' '/inet/ {print $3}'").split()[0]
 
         lcd.write_string(now.strftime('%b %d  %H:%M:%S\n'))
         lcd.cursor_pos = (1, 0)
